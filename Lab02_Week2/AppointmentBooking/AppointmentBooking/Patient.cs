@@ -2,16 +2,10 @@
 {
     public class Patient
     {
-        // Legal name is required and immutable after creation.
         public string Id { get; }
         public string LegalName { get; }
-
-        // Preferred name is optional — supports cultural naming
-        // preferences without losing the official legal identity.
         public string PreferredName { get; }
 
-        // DisplayName decides what the system actually shows to staff,
-        // falling back to LegalName only when no preferred name exists.
         public string DisplayName
         {
             get
@@ -27,6 +21,12 @@
         {
             if (string.IsNullOrWhiteSpace(id))
                 throw new ArgumentException("Patient ID is required.");
+
+            // Business rule: a patient ID must follow a minimal valid format
+            // (at least 2 characters) to be considered a real identifier,
+            // preventing accidental single-character or placeholder IDs.
+            if (id.Trim().Length < 2)
+                throw new ArgumentException("Patient ID is not valid.");
 
             if (string.IsNullOrWhiteSpace(legalName))
                 throw new ArgumentException("Legal name is required.");
