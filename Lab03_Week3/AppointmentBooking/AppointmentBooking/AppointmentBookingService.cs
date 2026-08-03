@@ -16,9 +16,28 @@
 
             request.Doctor.ReserveSlot();
 
+            var appointment = new Appointment(
+                Guid.NewGuid().ToString(),
+                request.Doctor,
+                request.Patient,
+                request.RequestedDate);
+
             return new BookingResult(
                 true,
-                $"Appointment booked successfully for {request.Patient.DisplayName} with {request.Doctor.FullName}.");
+                $"Appointment booked successfully for {request.Patient.DisplayName} with {request.Doctor.FullName}.",
+                appointment);
+        }
+
+        // Cancels an existing appointment and releases the doctor's slot.
+        // Delegates the "already cancelled" business rule to Appointment.Cancel(),
+        // keeping that rule in one place rather than duplicating it here.
+        public void CancelAppointment(Appointment appointment)
+        {
+            if (appointment == null)
+                throw new ArgumentNullException(nameof(appointment));
+
+            appointment.Cancel();
+            appointment.Doctor.ReleaseSlot();
         }
     }
 }
