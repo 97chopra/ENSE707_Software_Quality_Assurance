@@ -1,0 +1,12 @@
+C:\Users\aarti\source\repos\ENSE707_Software_Quality_Assurance\Lab04_Week4\LibraryReservation\LibraryReservation\bin\Debug\net8.0\LibraryReservation.deps.json
+C:\Users\aarti\source\repos\ENSE707_Software_Quality_Assurance\Lab04_Week4\LibraryReservation\LibraryReservation\bin\Debug\net8.0\LibraryReservation.dll
+C:\Users\aarti\source\repos\ENSE707_Software_Quality_Assurance\Lab04_Week4\LibraryReservation\LibraryReservation\bin\Debug\net8.0\LibraryReservation.pdb
+C:\Users\aarti\source\repos\ENSE707_Software_Quality_Assurance\Lab04_Week4\LibraryReservation\LibraryReservation\obj\Debug\net8.0\LibraryReservation.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\aarti\source\repos\ENSE707_Software_Quality_Assurance\Lab04_Week4\LibraryReservation\LibraryReservation\obj\Debug\net8.0\LibraryReservation.AssemblyInfoInputs.cache
+C:\Users\aarti\source\repos\ENSE707_Software_Quality_Assurance\Lab04_Week4\LibraryReservation\LibraryReservation\obj\Debug\net8.0\LibraryReservation.AssemblyInfo.cs
+C:\Users\aarti\source\repos\ENSE707_Software_Quality_Assurance\Lab04_Week4\LibraryReservation\LibraryReservation\obj\Debug\net8.0\LibraryReservation.csproj.CoreCompileInputs.cache
+C:\Users\aarti\source\repos\ENSE707_Software_Quality_Assurance\Lab04_Week4\LibraryReservation\LibraryReservation\obj\Debug\net8.0\LibraryReservation.sourcelink.json
+C:\Users\aarti\source\repos\ENSE707_Software_Quality_Assurance\Lab04_Week4\LibraryReservation\LibraryReservation\obj\Debug\net8.0\LibraryReservation.dll
+C:\Users\aarti\source\repos\ENSE707_Software_Quality_Assurance\Lab04_Week4\LibraryReservation\LibraryReservation\obj\Debug\net8.0\refint\LibraryReservation.dll
+C:\Users\aarti\source\repos\ENSE707_Software_Quality_Assurance\Lab04_Week4\LibraryReservation\LibraryReservation\obj\Debug\net8.0\LibraryReservation.pdb
+C:\Users\aarti\source\repos\ENSE707_Software_Quality_Assurance\Lab04_Week4\LibraryReservation\LibraryReservation\obj\Debug\net8.0\ref\LibraryReservation.dll
