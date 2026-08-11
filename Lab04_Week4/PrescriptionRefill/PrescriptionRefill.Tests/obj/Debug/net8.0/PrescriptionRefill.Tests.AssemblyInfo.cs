@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PrescriptionRefill.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c73b884abf484625e613666bf5927bc3e49b6f62")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ff37a3ddb45a620d0f057e0ad3e5e58975ac2f57")]
 [assembly: System.Reflection.AssemblyProductAttribute("PrescriptionRefill.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PrescriptionRefill.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
