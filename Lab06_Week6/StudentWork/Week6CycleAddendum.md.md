@@ -27,22 +27,25 @@ Decision this cycle must support:
 
 ## Readiness decision
 
-Decision: start fully / start partially / suspend
+Decision: Start partially
 
-Rationale:
+Rationale: All four entry criteria are met, so the technical and data foundation for testing is sound. However, the SMS sandbox outage blocks the two SMS-dependent test cases (TC-015, TC-016). Since this is a scoped infrastructure issue affecting only reminder-related functionality rather than the whole release, it does not justify suspending the entire cycle. Testing can proceed fully across the other 18 test cases while the SMS-dependent scope remains blocked until sandbox recovery is confirmed.
+
+Permitted scope: All test cases except TC-015 and TC-016 (18 of 20).
+Blocked scope: TC-015 (send reminder) and TC-016 (SMS provider failure mode) — pending SMS sandbox recovery.
 
 | Entry criterion | Met / Partly / Not met | Evidence | Consequence |
 |---|---|---|---|
-| | | | |
-| | | | |
-| | | | |
-
+| RC deployed to staging and domain-level MSTest baseline passes | Met | AB-1.4-RC1 deployed to staging; baseline run shows 12/12 tests passing | Testing can begin against a stable technical foundation |
+| Staging environment and database available, pass smoke check | Met | Release brief confirms the test database responds to the environment smoke check | Environment-dependent test cases (e.g. TC-012–TC-014, TC-017, TC-018) can be executed with trustworthy evidence |
+| Test users, doctors, appointments and synthetic data prepared | Met | Release brief confirms test users, doctors and appointments are prepared; synthetic-data-only policy in force | Execution can proceed without needing additional data setup time |
+| No open Severity 1 / Critical product defect known | Met | Release brief states no open Severity 1 defect is known before execution begins | Evidence gathered this cycle won't be immediately invalidated by a known blocking issue |
 ## Exit criteria
 
-1.
-2.
-3.
-4.
+1. All Critical-risk test cases (TC-008, TC-011, TC-014) have been executed, with no unresolved Critical or Severity 1 product defect remaining.
+2. All High-risk test cases within the permitted scope (18 of 20, excluding SMS-dependent TC-015/TC-016) have been executed, with a documented pass rate and no unresolved High-severity defect affecting state integrity or authorisation.
+3. Any test case that remains Blocked or Not Run (including TC-015/TC-016 if the SMS sandbox has not recovered) is explicitly listed with its residual risk and owner in the completion report.
+4. Confirmation and targeted regression evidence exists for any defect that was fixed during the cycle, showing the original failure no longer occurs and no related passing test has regressed.
 
 ## Suspension and resumption
 
