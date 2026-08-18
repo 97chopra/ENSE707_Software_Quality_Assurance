@@ -49,15 +49,24 @@ Blocked scope: TC-015 (send reminder) and TC-016 (SMS provider failure mode) —
 
 ## Suspension and resumption
 
-Suspension condition:
-Resumption evidence required:
+Suspension condition: If the staging environment or database becomes unavailable during execution (e.g. an outage preventing reliable evidence collection), testing of environment-dependent test cases will be suspended.
+
+Resumption evidence required: The environment specialist confirms connectivity is restored and a fresh environment smoke check passes before execution resumes.
 
 ## Work-breakdown estimate
 
 | Work item | Effort | Dependency | Can run in parallel? | Assumption |
 |---|---:|---|---|---|
-| | | | | |
+| Environment smoke checks (×3) | 0.5h | Staging build and accounts | Partly (app and database checks can be split) | Environment specialist available from 1:00 pm, so this cannot start earlier |
+| Prepare and verify test-data sets (×4) | 1.0h | Environment smoke checks | Yes | Synthetic data only; assumes data templates already exist and just need instantiating |
+| Execute planned test cases (×20) | 4.0h | Environment and data ready | Yes | Uses the flat 12-min/test planning rate, not the individual per-test estimates in TestPortfolio.csv; assumes 2 testers split the load |
+| Investigate and triage anomalies (×4) | 1.67h | Initial results and evidence | Partly (testers classify first, developer joins after) | Developer only available after initial triage, for 2h total |
+| Confirmation and targeted regression tests (×6) | 1.5h | Resolved build | Yes | Assumes at least one anomaly is resolved during the cycle; scope may shrink if none are |
+| Prepare progress report | 0.5h | Checkpoint A results | No | Can begin while investigation continues, per the estimation notes |
+| Prepare completion report | 0.75h | Final evidence and decisions | No | Must be last; cannot start until all other evidence is finalised |
 
-Total estimated person-hours:
-Estimated calendar duration:
-Main uncertainty:
+Total estimated person-hours: 9.92 hours (9h 55m)
+
+Estimated calendar duration: Roughly 1.5 working days — starting 1:00 pm Day 1 (environment checks → data prep → test execution → initial triage) and finishing Day 2 morning (developer fixes, confirmation/regression, completion report) ahead of the 4:00 pm decision deadline. Available staff hours (Tester A 4h + Tester B 3h + Developer 2h = 9h) are a close match to the 9.92h estimate, leaving little slack.
+
+Main uncertainty: The SMS sandbox recovery time is unconfirmed. This estimate excludes TC-015 and TC-016 (SMS-dependent) entirely. If the sandbox recovers mid-cycle, additional unbudgeted testing and triage time would be needed to cover that scope before the decision deadline.
