@@ -1,0 +1,8 @@
+ResultID,Build,TestID,TestPurpose,Status,ObservedResult,RelatedIssue
+FR-01,AB-1.4-RC2,TC-007,Confirmation,Passed,Retry returned the original booking and did not reserve another slot,DEF-001
+FR-02,AB-1.4-RC2,TC-001,Regression,Passed,Normal first booking still succeeded,DEF-001
+FR-03,AB-1.4-RC2,TC-017,Regression,Failed,A different patient booking the same doctor and time received HTTP 409 as if it were a duplicate,DEF-001
+FR-04,AB-1.4-RC2,TC-011,Confirmation,Passed,Non-owner received HTTP 403 and the appointment remained active,DEF-002
+FR-05,AB-1.4-RC2,TC-015,Previously blocked,Passed,SMS sandbox recovered and one reminder was sent,ENV-001
+FR-06,AB-1.4-RC2,TC-016,Previously blocked,Failed,Provider error caused the booking transaction to be rolled back,DEF-003
+FR-07,AB-1.4-RC2,TC-010,Test-fixture verification,Passed,New appointment fixture per test removed the suite-only failure,TEST-001

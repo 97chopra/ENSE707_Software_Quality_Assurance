@@ -1,0 +1,21 @@
+TestID,Status,ObservedResult,EvidenceRef
+TC-001,Passed,Booking succeeded and one slot was reserved,E-001
+TC-002,Passed,Booking failed and the slot count remained zero,E-002
+TC-003,Passed,Past date was rejected,E-003
+TC-004,Passed,Missing patient ID was rejected,E-004
+TC-005,Passed,Preferred name appeared in the response,E-005
+TC-006,Passed,Failed booking left slot count unchanged,E-006
+TC-007,Failed,Two booking IDs were created for one retried request,ANO-01
+TC-008,Failed,One concurrent request produced an unhandled exception,ANO-02
+TC-009,Passed,Owned appointment was cancelled and one slot was released,E-009
+TC-010,Failed,Suite run released a second slot but isolated rerun passed,ANO-03
+TC-011,Failed,User B received HTTP 204 and User A's appointment was cancelled,ANO-04
+TC-012,Passed,One correct booking row was stored,E-012
+TC-013,Not Run,Restart window was not yet available,E-013
+TC-014,Not Run,Failure-injection setup had not been prepared,E-014
+TC-015,Blocked,SMS sandbox hostname did not resolve,ANO-05
+TC-016,Blocked,SMS sandbox hostname did not resolve,ANO-05
+TC-017,Passed,End-to-end booking completed and database state matched,E-017
+TC-018,Not Run,Deferred while cancellation failures were triaged,E-018
+TC-019,Passed,Failure message contained the reason and next action,E-019
+TC-020,Passed,Audit entry contained actor action and time,E-020

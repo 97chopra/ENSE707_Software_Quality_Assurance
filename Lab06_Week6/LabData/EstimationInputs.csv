@@ -1,0 +1,8 @@
+WorkItem,Quantity,PlanningRate,Dependency,CanParallelise,Notes
+Environment smoke checks,3,10 minutes each,Staging build and accounts,Partly,Application and database checks can be split
+Prepare and verify test-data sets,4,15 minutes each,Environment smoke checks,Yes,Use synthetic data only
+Execute planned test cases,20,12 minutes each,Environment and data,Yes,Some tests have additional dependencies
+Investigate and triage anomalies,4,25 minutes each,Initial results and evidence,Partly,Developer joins after initial classification
+Confirmation and targeted regression tests,6,15 minutes each,Resolved build,Yes,Scope may change after triage
+Prepare progress report,1,30 minutes,Checkpoint A,No,Can begin while investigation continues
+Prepare completion report,1,45 minutes,Final evidence and decisions,No,Must state residual risks

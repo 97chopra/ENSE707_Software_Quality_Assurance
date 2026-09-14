@@ -1,0 +1,21 @@
+TestID,FinalStatus,FinalBuild,Notes
+TC-001,Passed,AB-1.4-RC3,Normal booking passed
+TC-002,Passed,AB-1.4-RC3,No-slot behaviour passed
+TC-003,Passed,AB-1.4-RC3,Past-date validation passed
+TC-004,Passed,AB-1.4-RC3,Patient validation passed
+TC-005,Passed,AB-1.4-RC3,Preferred-name behaviour passed
+TC-006,Passed,AB-1.4-RC3,Failed booking preserved slot count
+TC-007,Passed,AB-1.4-RC3,Duplicate retry issue confirmed fixed
+TC-008,Failed,AB-1.4-RC3,Unhandled exception remains possible under concurrent final-slot requests
+TC-009,Passed,AB-1.4-RC3,Owned cancellation released one slot
+TC-010,Passed,AB-1.4-RC3,Fixture corrected and repeat-cancellation behaviour passed
+TC-011,Passed,AB-1.4-RC3,Non-owner cancellation was denied
+TC-012,Passed,AB-1.4-RC3,Booking persistence passed
+TC-013,Blocked,AB-1.4-RC3,Required restart window was not made available
+TC-014,Passed,AB-1.4-RC3,Rollback behaviour passed
+TC-015,Passed,AB-1.4-RC3,Successful SMS reminder passed
+TC-016,Failed,AB-1.4-RC3,SMS provider error still rolls back a valid booking
+TC-017,Passed,AB-1.4-RC3,Over-broad duplicate-key regression was corrected
+TC-018,Not Run,AB-1.4-RC3,End-to-end cancellation deferred at the deadline
+TC-019,Passed,AB-1.4-RC3,Actionable failure message passed
+TC-020,Not Run,AB-1.4-RC3,Audit-log test deferred at the deadline

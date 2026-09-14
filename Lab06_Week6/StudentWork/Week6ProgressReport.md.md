@@ -17,7 +17,7 @@ Definitions used for planned, executed, passed and blocked: Planned = all 20 por
 
 ## Status and forecast
 
-## Status and forecast
+
 
 Important evidence: 11 of 20 tests passed, 4 failed (2 Critical: ANO-02 concurrency exception on TC-008, ANO-04 authorisation bypass on TC-011; 2 High: ANO-01 duplicate booking on TC-007, ANO-03 fixture-caused failure on TC-010), 2 blocked by the SMS sandbox outage (TC-015, TC-016), and 3 not yet run (TC-013, TC-014, TC-018).
 
@@ -26,7 +26,7 @@ Main blockers: (1) SMS sandbox outage with unconfirmed recovery time, blocking T
 Forecast against the plan: Execution progress (75%) is broadly on pace against the 9.92-hour estimate, but two Critical-risk defects remain open and High/Critical coverage sits at only 69.2% — below what the exit criteria require. Without developer time directed at the two Critical defects and tester time directed at TC-014, the cycle is unlikely to meet its exit criteria before tomorrow's 4pm decision point.
 
 ## Control actions
-## Control actions
+
 
 | Action | Signal that triggered it | Expected benefit | Trade-off or new risk | Owner |
 |---|---|---|---|---|

@@ -1,0 +1,21 @@
+TestID,RequirementID,Level,Focus,Risk,Priority,Dependency,EstimatedMinutes,Scenario,ExpectedResult
+TC-001,REQ-BOOK-01,Unit/Component,Functional,High,P1,Domain library,8,Book when a doctor has an available slot,Booking succeeds and one slot is reserved
+TC-002,REQ-BOOK-02,Unit/Component,Functional,Medium,P2,Domain library,8,Book when no slot is available,Booking fails and the slot count is unchanged
+TC-003,REQ-BOOK-03,Unit/Component,Validation,Medium,P2,Domain library,8,Request an appointment in the past,Request is rejected with a clear reason
+TC-004,REQ-PAT-01,Unit/Component,Validation,Medium,P2,Domain library,8,Create a request with a missing patient ID,Invalid patient data is rejected
+TC-005,REQ-PAT-02,Unit/Component,Usability,Low,P3,Domain library,8,Book for a patient with a preferred name,Patient-facing message uses the preferred name
+TC-006,REQ-BOOK-04,Unit/Component,State integrity,High,P1,Domain library,10,Attempt a booking that fails,Failure does not change the available-slot count
+TC-007,REQ-BOOK-05,Service,Duplicate prevention,High,P1,Service endpoint,15,Submit the same booking request twice,Only one booking is created and the response is safe to retry
+TC-008,REQ-BOOK-06,Integration,Concurrency,Critical,P1,Service plus shared data,25,Send two concurrent requests for the final slot,At most one booking succeeds and no unhandled error occurs
+TC-009,REQ-CAN-01,Service,State integrity,High,P1,Cancellation service,12,Cancel an owned active appointment,Appointment is cancelled and exactly one slot is released
+TC-010,REQ-CAN-02,Service,State integrity,High,P1,Cancellation service,12,Repeat cancellation of the same appointment,Second cancellation fails safely and does not release another slot
+TC-011,REQ-AUTH-01,System,Security,Critical,P1,Authentication and cancellation,20,User B attempts to cancel User A's appointment,Access is denied and the appointment remains active
+TC-012,REQ-DATA-01,Integration,Persistence,High,P1,Staging database,15,Create a booking and query the database,One correct booking record is stored
+TC-013,REQ-DATA-02,Integration,Reliability,High,P1,Staging database and restart access,20,Restart the service after saving a booking,The booking is available after restart
+TC-014,REQ-DATA-03,Integration,Data integrity,Critical,P1,Failure-injection database,25,Force the booking write to fail,Partial data is rolled back and the slot remains available
+TC-015,REQ-SMS-01,SIT,External integration,Medium,P2,SMS sandbox,15,Send a reminder for a confirmed appointment,One reminder is sent to the intended test recipient
+TC-016,REQ-SMS-02,SIT,Resilience,High,P1,SMS sandbox failure mode,18,Make the SMS provider return an error,Booking remains confirmed and the reminder failure is recorded
+TC-017,REQ-E2E-01,System,Functional,High,P1,UI/API plus database,20,Complete an end-to-end booking,Confirmation is shown and persisted state is correct
+TC-018,REQ-E2E-02,System,Functional,High,P1,UI/API plus database,20,Complete an end-to-end cancellation,Cancellation is shown and persisted state is correct
+TC-019,REQ-USE-01,System,Usability,Medium,P2,UI/API,12,Trigger a booking failure,Message explains the problem and an appropriate next action
+TC-020,REQ-AUD-01,System,Auditability,Medium,P2,Audit log,15,Create and cancel a booking,Audit entries contain actor action and time without unnecessary patient data
