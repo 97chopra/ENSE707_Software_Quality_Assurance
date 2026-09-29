@@ -1,0 +1,26 @@
+Regression Reflection
+
+1. Which test detected the original discount defect?
+ApplyDiscount_WhenPriceIs200AndDiscountIs20_Returns160 detected it directly
+(Expected 160, Actual 180). The two CalculateFinalTotal tests also failed
+(Expected 180 but got 190, and Expected 87 but got 85) because they depend
+on ApplyDiscount.
+
+2. Why did the first $100, 20% test fail to expose the defect?
+With a price of 100, subtracting 20 (the buggy flat subtraction) and taking
+20% off (the correct percentage) both give 80. The test passed with both the
+defective and the correct code, so it could not tell them apart.
+
+3. Why is the $200, 20% test a stronger regression test?
+With a price of 200, the buggy code gives 200 - 20 = 180, while the correct
+code gives 200 - 40 = 160. The two results are different, so the test passes
+only when the discount is really calculated as a percentage. It also matches
+the exact scenario a customer reported.
+
+4. How do these tests help with defect prevention?
+They turn the reported defect into an automated check. When I temporarily
+reintroduced the defect, 3 tests failed immediately, and after restoring the
+correct code all 11 tests passed again. If anyone changes the discount logic
+in future, the tests will catch it before release. The boundary tests
+(exactly $100, 0%, 100%) and invalid input tests also protect against the
+other defects found in this lab.

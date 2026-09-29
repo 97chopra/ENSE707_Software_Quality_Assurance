@@ -1,0 +1,54 @@
+Final Reflection
+
+1. What was the original defect?
+ApplyDiscount subtracted the discount value directly from the price
+(price - discountPercent) instead of calculating a percentage, so a $200
+order with a 20% discount was charged $180 instead of $160. A second defect
+was in IsEligibleForFreeShipping, which used "> 100" instead of ">= 100", so
+an order of exactly $100 did not get free shipping. The code also had no input
+validation.
+
+2. What was the root cause?
+Insufficient test design and no requirement-to-test review. The only test
+used 100 with 20%, where the buggy and correct formulas give the same result,
+so the defect stayed hidden. Boundary values and invalid inputs were never
+tested.
+
+3. What tests did you add to prevent recurrence?
+- 200 with 20% returns 160 (exposes the discount defect)
+- 0% discount returns the original price, 100% discount returns 0
+- Negative price, negative discount and discount above 100 throw
+  ArgumentException
+- Free shipping at exactly $100 returns true, and at $99 returns false
+- CalculateFinalTotal with free shipping (200, 10%, 15 gives 180) and without
+  free shipping (80, 10%, 15 gives 87)
+
+4. How did GitHub Copilot help?
+Copilot quickly suggested a range of test cases covering discount
+calculation, shipping boundaries, invalid inputs and final totals. This saved
+time and gave me a starting checklist for test design.
+
+5. What Copilot suggestions needed human review?
+- Its test for exactly $100 expected false, which contradicts the business
+  rule (free shipping at $100 or more). Copilot copied the current buggy code
+  instead of the requirement.
+- The 10% on 100 test was weak because flat subtraction also gives 90.
+- The negative shipping test needed clarification because the requirements
+  did not state that rule.
+- It missed the discount above 100 case and the reported $200 with 20% case.
+- Its generated code used a different namespace than my project.
+
+6. What is the difference between fixing a defect and preventing a defect?
+Fixing a defect corrects the specific bug after it is found (changing the
+discount formula and the >= boundary). Preventing a defect stops it, and
+similar ones, from happening again through regression tests, better test
+design, code review and CI checks. A fix solves today's problem, while
+prevention improves the process.
+
+7. How does this lab relate to DevOps QA?
+DevOps QA relies on automated tests that run continuously in the pipeline
+(CI) so defects are caught early, before release. The regression tests from
+this lab could run on every commit or pull request and block a merge if they
+fail. Root cause analysis then feeds back into the process, so recurring
+defects are prevented instead of only patched. This supports shift-left
+testing and a fast, reliable delivery cycle.

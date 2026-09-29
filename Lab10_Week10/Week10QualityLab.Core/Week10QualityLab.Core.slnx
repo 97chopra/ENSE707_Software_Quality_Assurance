@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Week10QualityLab.Core/Week10QualityLab.Core.csproj" />
+  <Project Path="Week10QualityLab.Tests/Week10QualityLab.Tests.csproj" />
+</Solution>

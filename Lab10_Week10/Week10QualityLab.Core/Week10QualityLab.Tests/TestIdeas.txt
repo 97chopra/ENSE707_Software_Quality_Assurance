@@ -1,0 +1,70 @@
+Test Ideas suggested by GitHub Copilot
+
+Test Idea 1: ApplyDiscount 10% on 100 returns 90
+Expected behaviour: Price reduced by 10 percent, result 90.
+Useful / Needs clarification / Not useful: Needs clarification
+(Valid case, but weak: 100 - 10 also gives 90, so it does not expose the defect.)
+
+Test Idea 2: ApplyDiscount 0% returns same price (75.50)
+Expected behaviour: No discount, price unchanged.
+Useful / Needs clarification / Not useful: Useful
+
+Test Idea 3: ApplyDiscount 100% on 50 returns 0
+Expected behaviour: Full discount, result 0.
+Useful / Needs clarification / Not useful: Useful
+(Boundary value, and it exposes the defect: current code returns -50.)
+
+Test Idea 4: IsEligibleForFreeShipping exactly 100 returns false
+Expected behaviour: Copilot expects no free shipping at exactly 100.
+Useful / Needs clarification / Not useful: Not useful
+(Contradicts the business rule: free shipping applies at 100 or more. Copilot copied the current buggy code.)
+
+Test Idea 5: IsEligibleForFreeShipping 100.01 returns true
+Expected behaviour: Total just above 100 gets free shipping.
+Useful / Needs clarification / Not useful: Useful
+(Correct under the rule, but does not test the real boundary at 100.)
+
+Test Idea 6: IsEligibleForFreeShipping 99.99 returns false
+Expected behaviour: Total just below 100 pays shipping.
+Useful / Needs clarification / Not useful: Useful
+
+Test Idea 7: CalculateFinalTotal 120, 10%, shipping 10 returns 108
+Expected behaviour: Discounted price 108 is eligible, shipping waived.
+Useful / Needs clarification / Not useful: Useful
+
+Test Idea 8: CalculateFinalTotal 50, 10%, shipping 5 returns 50
+Expected behaviour: Discounted price 45 is not eligible, shipping added.
+Useful / Needs clarification / Not useful: Useful
+
+Test Idea 9: ApplyDiscount negative price throws ArgumentException
+Expected behaviour: Invalid price is rejected.
+Useful / Needs clarification / Not useful: Useful
+
+Test Idea 10: ApplyDiscount negative discount throws ArgumentException
+Expected behaviour: Invalid discount is rejected.
+Useful / Needs clarification / Not useful: Useful
+
+Test Idea 11: CalculateFinalTotal negative shipping throws ArgumentException
+Expected behaviour: Invalid shipping cost is rejected.
+Useful / Needs clarification / Not useful: Needs clarification
+(Reasonable, but the requirements do not explicitly state this rule.)
+
+Review Questions
+
+1. Did Copilot suggest any unclear tests?
+Yes. Test Idea 1 is valid but unclear in value because it passes even with the defect.
+Test Idea 11 needs clarification because negative shipping is not in the stated requirements.
+Test Idea 4 is actually incorrect against the business rule.
+
+2. Did Copilot miss any important boundary cases?
+Yes. It missed: discount greater than 100 (e.g. 101) throwing an exception,
+free shipping exactly at 100 returning true, the reported case of 200 with 20%
+returning 160, price of 0, and a final total where the discounted price is exactly 100.
+
+3. Which tests are based on real requirements?
+Percentage discount tests (Ideas 1, 2, 3), the 99.99 and 100.01 shipping tests (Ideas 5, 6),
+final total tests (Ideas 7, 8), and negative price/discount validation (Ideas 9, 10).
+
+4. Which tests are based only on the current code?
+Test Idea 4 (free shipping false at exactly 100) is based only on the current buggy
+code (orderTotal > 100), not on the requirement.

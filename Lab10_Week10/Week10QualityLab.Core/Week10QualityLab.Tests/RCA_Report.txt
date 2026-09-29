@@ -1,0 +1,86 @@
+Root Cause Analysis Report
+
+Problem Statement:
+Customers received incorrect discounts. A $200 order with a 20% discount was
+charged as $180 instead of $160. Another customer expected free shipping on an
+order total of exactly $100, but shipping was still charged.
+
+Impact:
+- Customers were undercharged on discounts and overcharged on shipping, so
+  order totals were wrong.
+- Loss of customer trust and a likely increase in support complaints.
+- Revenue and pricing accuracy affected, and manual corrections may be needed.
+- Similar pricing defects have appeared before, so the issue is recurring.
+
+Immediate Cause:
+1. ApplyDiscount subtracted discountPercent directly from the price
+   (price - discountPercent) instead of calculating a percentage.
+2. IsEligibleForFreeShipping used "orderTotal > 100" instead of
+   "orderTotal >= 100", so exactly $100 did not qualify.
+3. There was no validation for invalid inputs (negative price, negative
+   discount, discount above 100, negative shipping cost).
+
+5 Whys:
+1. Why did customers receive the wrong discount?
+   Because the system subtracted the discount value as a flat amount
+   (200 - 20 = 180) instead of taking 20% off (200 - 40 = 160).
+
+2. Why did the code calculate the discount incorrectly?
+   Because the developer assumed discountPercent was a currency amount and
+   did not implement the percentage formula. The requirement was not
+   translated correctly into code.
+
+3. Why was this not detected by testing?
+   Because the only test used a price of 100 with a 20% discount. Both the
+   buggy and the correct formula give 80, so the test passed either way.
+
+4. Why were the tests insufficient?
+   Because test values were chosen without boundary analysis or a check that
+   the test could actually fail. There were no tests for the $100 shipping
+   boundary, invalid inputs, or the full order total calculation.
+
+5. Why did the team not identify the missing cases earlier?
+   Because there was no review process for test quality and no requirement
+   based test design step. The team did not review the business rules
+   (e.g. "free shipping at $100 or more") against the tests before release,
+   and earlier pricing defects were fixed without adding regression tests.
+
+Root Cause:
+Insufficient test design and no requirement-to-test review process. Weak test
+data (100 with 20%) hid the discount defect, and boundary and invalid input
+cases were never tested, so defects reached production.
+
+Corrective Action:
+- ApplyDiscount changed to price - (price * discountPercent / 100).
+- IsEligibleForFreeShipping changed from > 100 to >= 100.
+- Added validation: price >= 0, discount between 0 and 100, shipping cost >= 0.
+- All 11 tests now pass after the fix.
+
+Preventive Actions:
+1. Use boundary value analysis and choose test data that can distinguish
+   correct from incorrect logic (e.g. 200 with 20% instead of 100 with 20%).
+2. Review tests against written business rules before release, and require a
+   regression test for every defect that is fixed.
+3. Run the automated MSTest suite in a CI pipeline on every commit or pull
+   request, and block merges when tests fail. Use GitHub Copilot for test
+   ideas, but always verify them against real requirements.
+
+Regression Test Added:
+- ApplyDiscount_WhenPriceIs200AndDiscountIs20_Returns160
+- ApplyDiscount_WhenDiscountIsZero_ReturnsOriginalPrice
+- ApplyDiscount_WhenDiscountIsOneHundred_ReturnsZero
+- ApplyDiscount_WhenPriceIsNegative_ThrowsArgumentException
+- ApplyDiscount_WhenDiscountIsNegative_ThrowsArgumentException
+- ApplyDiscount_WhenDiscountIsGreaterThan100_ThrowsArgumentException
+- IsEligibleForFreeShipping_WhenOrderTotalIs100_ReturnsTrue
+- IsEligibleForFreeShipping_WhenOrderTotalIs99_ReturnsFalse
+- CalculateFinalTotal (eligible for free shipping) returns total without shipping
+- CalculateFinalTotal (not eligible) adds shipping
+
+Verification Plan:
+- Run all 11 tests in Visual Studio Test Explorer and confirm they pass.
+- Temporarily reintroduce the original defect and confirm the tests fail
+  (done: 3 tests failed), then restore the fix and confirm all pass again.
+- Manually verify the two reported scenarios: $200 with 20% gives $160, and an
+  order total of exactly $100 gets free shipping.
+- Add the test suite to CI so it runs on every future change.

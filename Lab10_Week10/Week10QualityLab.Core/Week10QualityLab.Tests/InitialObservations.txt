@@ -1,0 +1,23 @@
+Initial Observations - OrderService
+
+1. What does ApplyDiscount appear to do?
+It subtracts discountPercent directly from the price (price - discountPercent),
+so it treats the discount as a flat dollar amount instead of a percentage.
+
+2. What assumption does it make about discountPercent?
+It assumes discountPercent is a fixed currency value, not a percentage.
+It also assumes the input is always valid (no range checking).
+
+3. What happens when the discount is 20?
+For a $200 order, it returns 200 - 20 = 180.
+The correct result for a 20% discount should be 160 (200 - 40).
+
+4. Should free shipping apply when the total is exactly $100?
+Yes. The business rule says free shipping applies at $100 or more.
+The current code uses "orderTotal > 100", so exactly $100 is wrongly charged shipping.
+
+5. What invalid inputs should the code reject?
+- Negative price
+- Negative discount percentage
+- Discount percentage greater than 100
+- Negative shipping cost
