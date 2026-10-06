@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="../Week11DefectLifeCycle.Tests/Week11DefectLifeCycle.Tests.csproj" />
+  <Project Path="Week11DefectLifeCycle.Core/Week11DefectLifeCycle.Core.csproj" />
+</Solution>

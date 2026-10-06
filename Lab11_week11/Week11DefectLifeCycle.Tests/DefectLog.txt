@@ -1,0 +1,33 @@
+Defect ID: D-001
+Title: Discount calculation subtracts discount value instead of percentage
+Description: The ApplyDiscount method subtracts discountPercent directly from the price instead of calculating the percentage discount.
+Steps to Reproduce:
+1. Create an OrderService object.
+2. Call ApplyDiscount(200, 20).
+Expected Result: 160
+Actual Result: 180
+Severity: High
+Priority: High
+Status: New
+Owner: Unassigned
+Evidence: To be confirmed by MSTest.
+Resolution Notes: Not fixed yet.
+Retest Result: Not retested.
+Final Status: New
+
+Defect ID: D-002
+Title: Free shipping is not applied when discounted total is exactly $100
+Description: The IsEligibleForFreeShipping method uses greater than 100 instead of greater than or equal to 100.
+Steps to Reproduce:
+1. Create an OrderService object.
+2. Call IsEligibleForFreeShipping(100).
+Expected Result: true
+Actual Result: false
+Severity: Medium
+Priority: High
+Status: New
+Owner: Unassigned
+Evidence: To be confirmed by MSTest.
+Resolution Notes: Not fixed yet.
+Retest Result: Not retested.
+Final Status: New
