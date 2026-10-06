@@ -8,12 +8,13 @@ Expected Result: 160
 Actual Result: 180
 Severity: High
 Priority: High
-Status: New
-Owner: Unassigned
-Evidence: To be confirmed by MSTest.
-Resolution Notes: Not fixed yet.
-Retest Result: Not retested.
-Final Status: New
+Status: Verified
+Owner: Developer
+Evidence: MSTest failed in Test Explorer. Expected result did not match actual result.
+Retest Evidence: D001_ApplyDiscount_WhenPriceIs200AndDiscountIs20_Returns160 - Passed after fix.
+Resolution Notes: Production code updated. Discount percentage formula and free shipping boundary condition corrected.
+Retest Result: Passed. Original defect is no longer reproducible.
+Final Status: Closed
 
 Defect ID: D-002
 Title: Free shipping is not applied when discounted total is exactly $100
@@ -25,9 +26,21 @@ Expected Result: true
 Actual Result: false
 Severity: Medium
 Priority: High
-Status: New
-Owner: Unassigned
-Evidence: To be confirmed by MSTest.
-Resolution Notes: Not fixed yet.
-Retest Result: Not retested.
-Final Status: New
+Status: Verified
+Owner: Developer
+Evidence: MSTest failed in Test Explorer. Expected result did not match actual result.
+Retest Evidence: D002_IsEligibleForFreeShipping_WhenOrderTotalIs100_ReturnsTrue - Passed after fix.
+Resolution Notes: Production code updated. Discount percentage formula and free shipping boundary condition corrected.
+Retest Result: Passed after fix was restored.
+Final Status: Closed
+
+Defect ID: D-002
+...
+Retest Evidence: D002_IsEligibleForFreeShipping_WhenOrderTotalIs100_ReturnsTrue - Passed after fix.
+Resolution Notes: Production code updated. Discount percentage formula and free shipping boundary condition corrected.
+Retest Result: Passed after fix was restored.
+Final Status: Closed
+
+
+
+Regression Evidence: Boundary and invalid input regression tests passed. Related discount, shipping, and final total behaviours are protected by automated tests.

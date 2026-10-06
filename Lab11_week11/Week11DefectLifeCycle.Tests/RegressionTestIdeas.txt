@@ -1,0 +1,49 @@
+RegressionTestIdeas.txt
+
+Test idea: ApplyDiscount_WhenZeroPercent_ReturnsOriginalPrice (150, 0 => 150)
+Purpose: Checks the lower boundary of the discount range. A 0% discount must not change the price.
+Useful / Needs clarification / Not useful: Useful
+
+Test idea: ApplyDiscount_When100Percent_ReturnsZero (200, 100 => 0)
+Purpose: Checks the upper boundary of the discount range. A 100% discount makes the price zero.
+Useful / Needs clarification / Not useful: Useful
+
+Test idea: ApplyDiscount_WhenFractionalPercent_ReturnsCorrectFractionalReduction (100, 12.5 => 87.5)
+Purpose: Confirms the formula works for decimal percentages and not only whole numbers.
+Useful / Needs clarification / Not useful: Useful (I verified: 12.5% of 100 = 12.5, so 87.5)
+
+Test idea: ApplyDiscount_WhenNegativePercent_ThrowsArgumentOutOfRangeException
+Purpose: Checks that a negative discount is rejected (Rule 4).
+Useful / Needs clarification / Not useful: Needs clarification (idea is good, but the fixed code throws ArgumentException, so the exception type must be changed)
+
+Test idea: ApplyDiscount_WhenPercentGreaterThan100_ThrowsArgumentOutOfRangeException
+Purpose: Checks that a discount over 100% is rejected (Rule 4).
+Useful / Needs clarification / Not useful: Needs clarification (same exception type problem)
+
+Test idea: ApplyDiscount_WhenNegativePrice_ThrowsArgumentOutOfRangeException
+Purpose: Checks that a negative price is rejected (Rule 4).
+Useful / Needs clarification / Not useful: Needs clarification (same exception type problem)
+
+Test idea: IsEligibleForFreeShipping_WhenTotalIsExactlyThreshold_ReturnsTrue (100 => true)
+Purpose: Checks the exact shipping boundary from defect D-002.
+Useful / Needs clarification / Not useful: Useful, but it duplicates my D002 test, so it adds no new coverage
+
+Test idea: IsEligibleForFreeShipping_WhenJustBelowThreshold_ReturnsFalse (99.99 => false)
+Purpose: Checks that a total just under $100 still pays shipping.
+Useful / Needs clarification / Not useful: Useful
+
+Test idea: IsEligibleForFreeShipping_WhenJustAboveThreshold_ReturnsTrue (100.01 => true)
+Purpose: Checks that a total just over $100 gets free shipping.
+Useful / Needs clarification / Not useful: Useful
+
+Test idea: CalculateFinalTotal_WhenDiscountBringsToThreshold_ShippingIsWaived (125, 20, 10 => 100)
+Purpose: Checks that free shipping is decided on the discounted total, and that D-001 and D-002 work together.
+Useful / Needs clarification / Not useful: Useful (I verified: 125 - 25 = 100, which is eligible, so shipping is 0)
+
+Test idea: CalculateFinalTotal_WithZeroPriceAndZeroShipping_ReturnsZero (0, 0, 0 => 0)
+Purpose: Checks the zero edge case for the whole calculation.
+Useful / Needs clarification / Not useful: Useful (low priority)
+
+Test idea: CalculateFinalTotal_WhenDiscountExceeds100_FinalTotalIsZero (50, 200, 10 => 0)
+Purpose: Checks what happens when the discount is over 100%.
+Useful / Needs clarification / Not useful: Not useful (Copilot invented a "clamp to 0" rule. Rule 4 says a discount over 100% is invalid, so the code should throw an exception)

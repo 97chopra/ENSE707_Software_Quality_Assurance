@@ -1,0 +1,23 @@
+CopilotReview.txt
+
+1. What useful improvements did Copilot suggest?
+Copilot suggested adding exact input values, the file path of OrderService.cs, build/run instructions, environment details (.NET SDK, OS, Debug/Release), and rounding rules for currency. It also gave clearer titles for both defects that name the method and the exact cause. It listed missing information a developer would need to reproduce the issue.
+
+2. Did Copilot invent any details that were not provided?
+Yes. It introduced a different example (ApplyDiscount(200, 10) giving 190) instead of the 200 / 20 example from the lab. It added "P1 / Urgent" and "P2" priority labels that are not part of our defect log. It also mentioned .NET 10 and a Debug/Release configuration, which came from the workspace and not from the defect report. It treated the discount format (percentage or fraction) as unknown, even though Rule 1 already defines it as a percentage from 0 to 100.
+
+3. Did Copilot suggest appropriate severity and priority?
+Partly. Severity matched mine: High for D-001 and Medium for D-002. Priority for D-001 (P1 / Urgent) matched my High. For D-002 it suggested P2, which is lower than my High. I think High is more appropriate because the boundary bug directly breaks a pricing rule that customers see.
+
+4. Which Copilot suggestions did you accept?
+- Adding the environment details (.NET version, OS, build configuration) to the reproduction information.
+- Adding the file path of OrderService.cs for easier tracing.
+- The idea of making the titles more specific by naming the method and the cause.
+- The idea of checking the rounding rules for currency.
+
+5. Which Copilot suggestions did you reject and why?
+- The P2 priority for D-002: rejected because a wrong free shipping decision at exactly $100 affects customers directly and I rated it High.
+- The P1 / Urgent and P2 labels: rejected because the lab uses High / Medium / Low.
+- Asking whether discountPercent is a percentage or a fraction: rejected because Rule 1 already states it is a percentage from 0 to 100.
+- The changed example ApplyDiscount(200, 10): rejected because the lab defect uses 200 and 20 (expected 160, actual 180).
+- The xUnit tests ([Fact], Assert.Equal): rejected because this project uses MSTest, so the tests need [TestMethod] and Assert.AreEqual.

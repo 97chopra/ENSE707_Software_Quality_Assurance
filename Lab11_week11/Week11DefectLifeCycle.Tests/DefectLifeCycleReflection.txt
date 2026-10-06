@@ -1,0 +1,38 @@
+DefectLifeCycleReflection.txt
+
+1. What were the two main defects discovered in this lab?
+D-001: ApplyDiscount subtracted the discount value from the price instead of calculating a percentage, so a 20% discount on $200 returned 180 instead of 160.
+D-002: IsEligibleForFreeShipping used > 100 instead of >= 100, so an order total of exactly $100 did not get free shipping.
+
+2. What status did each defect start with?
+Both defects started with the status New (and Owner: Unassigned).
+
+3. What is the difference between Fixed and Closed?
+Fixed means the developer has changed the code to correct the defect, but nobody has confirmed it yet. Closed means the fix has been retested, the result was verified as passed, and no further work is needed. In this lab the path was New -> Assigned -> Open / In Progress -> Fixed -> Pending Retest -> Verified -> Closed.
+
+4. What is the difference between Retesting and Regression Testing?
+Retesting runs the exact test that exposed the defect (D001 and D002 tests) to confirm that the specific defect is fixed. Regression testing runs the wider set of tests (zero discount, 100% discount, shipping boundaries, final total, invalid inputs) to confirm that the fix did not break anything that was already working.
+
+5. When should a defect be Reopened?
+A defect should be reopened when the retest fails, meaning the original problem can still be reproduced after the fix. In this lab I simulated this by changing IsEligibleForFreeShipping back to > 100. The D002 test failed again, so D-002 was reopened until the correct fix was restored.
+
+6. Why is severity different from priority?
+Severity describes how serious the technical impact of the defect is. Priority describes how urgently it should be fixed from a business point of view. In this lab D-001 was High severity because it charges customers the wrong amount. D-002 was Medium severity because only the exact $100 boundary was affected, but I still gave it High priority because it breaks a visible pricing rule and the fix is small and quick.
+
+7. How did GitHub Copilot help with defect reports or test design?
+Copilot pointed out missing information in the defect reports (environment, file path, exact input values, rounding rules) and suggested more specific titles. For test design it produced 12 regression test ideas covering discount boundaries, invalid inputs, shipping boundaries and final total calculation, which gave me a good starting list.
+
+8. What Copilot suggestions required human review?
+- It used ArgumentOutOfRangeException in the invalid input tests, but the fixed code throws ArgumentException, so those tests would have failed.
+- It invented a "clamp final total to 0" rule that does not exist in the business rules. Rule 4 says a discount over 100% is invalid.
+- It suggested P1 / P2 priority labels and a lower priority (P2) for D-002, which did not match the lab's High / Medium / Low scale or my own judgement.
+- It used a different example (ApplyDiscount(200, 10)) and xUnit syntax ([Fact], Assert.Equal) instead of the lab's example and MSTest.
+- It asked whether discountPercent is a percentage or a fraction, although Rule 1 already defines it.
+- One suggested test duplicated an existing test, so it added no new coverage.
+I also checked every expected value by hand (for example 80 - 10% = 72, and 72 + 15 shipping = 87).
+
+9. How do automated tests support the defect life cycle?
+Automated tests give clear, repeatable evidence at each stage. They proved the defects existed (both tests failed), confirmed the fix (all tests passed), exposed an incomplete fix during the reopen scenario (D002 failed again), and now protect the behaviour against future regressions. They also make the Verified and Closed statuses evidence-based instead of opinion-based.
+
+10. How does this lab connect to Week 10 Root Cause Analysis and Defect Prevention?
+Week 10 looked at why defects happen and how to prevent them. The root causes here were a wrong formula (percentage logic) and an off-by-one boundary condition (> instead of >=), plus missing input validation. The prevention actions are boundary-value tests, invalid input tests, and clear business rules written before coding. Week 11 shows what happens after a defect is found: reporting, tracking, fixing, retesting, and regression testing.
